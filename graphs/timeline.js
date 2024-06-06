@@ -26,7 +26,7 @@ function timeline(divname) {
         }
     }
     
-    d3.csv("data/countries.csv", rowConverter).then(function(data) {
+    d3.csv("../data/countries.csv", rowConverter).then(function(data) {
         data = data.filter(d => {
 			return d.Worktime === 'TOT_FTE' &&
 					d.Sector === 'TOT_SEC' &&
