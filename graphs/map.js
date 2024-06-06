@@ -141,7 +141,7 @@ function map(divname) {
 					d.Year === selectedYear
 		})
 
-		d3.json("../europe.geojson").then(function(json) {
+		d3.json("europe.geojson").then(function(json) {
 			const studentByCountry = {}
 			dataset.forEach(function(d) {
 				studentByCountry[d.Country] = +d.Amount
