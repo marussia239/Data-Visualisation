@@ -21,7 +21,7 @@ function sankey(divname) {
         .nodePadding(10)
         .size([w, h])
 
-    d3.csv("../data/sankey.csv").then(function(data) {
+    d3.csv("data/sankey.csv").then(function(data) {
 
         const graph = {
                 "nodes": [],

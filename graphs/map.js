@@ -47,7 +47,7 @@ function map(divname) {
 		}
 	}
 	
-	d3.csv("../data/countries.csv", rowConverter).then(function(data) {
+	d3.csv("data/countries.csv", rowConverter).then(function(data) {
 		initializeMap(data)
 		updateMap(data, 2013)
 	}).catch(function(error) {
