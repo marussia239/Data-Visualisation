@@ -48,8 +48,8 @@
 						<ul>
 							<li><a href="#intro" class="active">Introduction</a></li>
 							<li><a href="#first">Overview</a></li>
-							<li><a href="#second">Deeper in details</a></li>
-							<li><a href="#third">Timeline</a></li>
+							<li><a href="#second">Timeline</a></li>
+							<li><a href="#third">Deeper in details</a></li>
 							<li><a href="#fourth">Education Sector</a></li>
 						</ul>
 					</nav>
@@ -82,6 +82,19 @@
 									<h2>Overview of the data</h2>
 								</header>
 
+								<h3><b>Choropleth Map: Geographic Distribution of Students</b></h3>
+								
+								<p>The map highlights the distribution of students enrolled in tertiary education across different countries. 
+									Countries are shaded based on the number of students enrolled.</p>
+
+								<p><i>Adjust the year using the slider to see how the distribution of students changes over time.
+									Hover over the bars to see the exact amount of students (in thousands).
+								</i></p>
+
+								<div id="map-container">
+									<script src="graphs/map.js"></script>
+								</div>
+
 								<h3><b>Stacked Barchart: Gender Distribution by Country</b></h3>
 								
 								<p>This barchart shows the distribution of students enrolled in tertiary education across different countries. 
@@ -96,60 +109,47 @@
 									<select id="yearSelect"></select>
 									<script src="graphs/barplot.js"></script>
 								</div>
-								
-								<h3><b>Choropleth Map: Geographic Distribution of Students</b></h3>
-								
-								<p>The map highlights the distribution of students enrolled in tertiary education across different countries. 
-									Countries are shaded based on the number of students enrolled.</p>
-
-								<p><i>Adjust the year using the slider to see how the distribution of students changes over time.
-									Hover over the bars to see the exact amount of students (in thousands).
-								</i></p>
-
-								<div id="map-container">
-									<script src="graphs/map.js"></script>
-								</div>
 							</section>
 
 						<!-- Second Section -->
 						<section id="second" class="main special">
 							<header class="major">
-								<h2>Deeper in details</h2>
+								<h2>Timeline</h2>
 							</header>
 
-							<h3><b>Sankey Diagram: Distribution by Level of Education</b></h3>
-								
-							<p>This diagram visualizes the flow of students through different levels of education, 
-								providing insights into how students progress within the tertiary education system.
-								Here we used Netherlands as an example.</p>
+							<h3><b>Changes in Total Number of Students by Country</b></h3>
+							
+							<p>This timeline graph shows the trend in the total number of students 
+								enrolled in tertiary education for a selected country.</p>
 
-							<p><i>Hover over the nodes and the links to see the exact percentage of students enrolled in each level of education.
+							<p><i>Use the dropdown list to select different countries and observe how the distribution changes over time.
+								Mind that the scale on the vertical axis changes as well.
+								Hover over the circles to see the exact amount of students at each timepoint.
 							</i></p>
 							
-							<div id="Sankey">
-								<script src="graphs/sankey.js"></script>
+							<div id="timeline">
+								<select id="countrySelect"></select>
+								<script src="graphs/timeline.js"></script>
 							</div>
 						</section>
 
 						<!-- Third Section -->
 							<section id="third" class="main special">
 								<header class="major">
-									<h2>Timeline</h2>
+									<h2>Deeper in details</h2>
 								</header>
-
-								<h3><b>Changes in Total Number of Students by Country</b></h3>
-								
-								<p>This timeline graph shows the trend in the total number of students 
-									enrolled in tertiary education for a selected country.</p>
-
-								<p><i>Use the dropdown list to select different countries and observe how the distribution changes over time.
-									Mind that the scale on the vertical axis changes as well.
-									Hover over the circles to see the exact amount of students at each timepoint.
+	
+								<h3><b>Sankey Diagram: Distribution by Level of Education</b></h3>
+									
+								<p>This diagram visualizes the flow of students through different levels of education, 
+									providing insights into how students progress within the tertiary education system.
+									Here we used Netherlands as an example.</p>
+	
+								<p><i>Hover over the nodes and the links to see the exact percentage of students enrolled in each level of education.
 								</i></p>
 								
-								<div id="timeline">
-									<select id="countrySelect"></select>
-									<script src="graphs/timeline.js"></script>
+								<div id="Sankey">
+									<script src="graphs/sankey.js"></script>
 								</div>
 							</section>
 
