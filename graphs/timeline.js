@@ -130,6 +130,7 @@ function timeline(divname) {
                 d3.max(curr_data, d => d.Amount) + y_margin])
             
             svg.select(".y-axis")
+                .transition().duration(1000)
                 .call(d3.axisLeft(y))
 
             line.datum(curr_data)

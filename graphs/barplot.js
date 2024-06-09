@@ -21,6 +21,13 @@ function barplot(divname) {
 	const yAxisGroup = svg.append("g")
 		.attr("class", "y-axis")
 
+	const xScale = d3.scaleLinear()
+		.range([0, w - margin.right])
+
+	const yScale = d3.scaleBand()
+		.range([h, 0])
+		.padding(0.1)
+
     const rowConverter = d => {
         return {
             Worktime: d.worktime,
@@ -51,25 +58,6 @@ function barplot(divname) {
 			.attr("class", "legend")
 			.attr("transform", "translate(600, 20)")
 
-		legend.selectAll("rect")
-			.data(legendData)
-			.enter().append("rect")
-			.attr("x", 0)
-			.attr("y", (d, i) => i * 20)
-			.attr("width", 18)
-			.attr("height", 18)
-			.style("fill", colorScale)
-			.style("stroke", '#000')
-			.style("stroke-opacity", 0.3)
-
-		legend.selectAll("text")
-			.data(legendData)
-			.enter().append("text")
-			.attr("x", 24)
-			.attr("y", (d, i) => i * 20 + 9)
-			.attr("dy", ".35em")
-			.text(d => d)
-
 		const years = Array.from(new Set(data.map(d => d.Year))).sort()
 		const select = d3.select("#yearSelect")
 		select.selectAll("option")
@@ -88,6 +76,28 @@ function barplot(divname) {
 		})
 
 		function updateChart(data, selectedYear) {
+
+			svg.selectAll("labels").remove()
+
+			legend.selectAll("rect")
+				.data(legendData)
+				.enter().append("rect")
+				.attr("x", 0)
+				.attr("y", (d, i) => i * 20)
+				.attr("width", 18)
+				.attr("height", 18)
+				.style("fill", colorScale)
+				.style("stroke", '#000')
+				.style("stroke-opacity", 0.3)
+
+			legend.selectAll("text")
+				.data(legendData)
+				.enter().append("text")
+				.attr("x", 24)
+				.attr("y", (d, i) => i * 20 + 9)
+				.attr("dy", ".35em")
+				.text(d => d)
+
 			const filteredData = data.filter(d => d.Year === selectedYear)
 
 			const processedData = d3.group(filteredData, d => d.Country)
@@ -98,20 +108,15 @@ function barplot(divname) {
 				F: value.find(d => d.Sex === 'F').Amount
 			})).slice(0, 20)
 
-			const xScale = d3.scaleLinear()
-				.domain([0, d3.max(stackData, d => +d.M + +d.F)])
-				.range([0, w])
-
-			const yScale = d3.scaleBand()
-				.domain(stackData.map(d => d.Country))
-				.range([h, 0])
-				.padding(0.1)		
+			xScale.domain([0, d3.max(stackData, d => +d.M + +d.F)])
+			
+			yScale.domain(stackData.map(d => d.Country))
 
 			const xAxis = d3.axisBottom(xScale)
 			const yAxis = d3.axisLeft(yScale)
 
-			xAxisGroup.call(xAxis)
-			yAxisGroup.call(yAxis)
+			xAxisGroup.transition().duration(1000).call(xAxis)
+			yAxisGroup.transition().duration(1000).call(yAxis)
 
 			const stack = d3.stack()
 				.keys(['M', 'F'])
@@ -140,7 +145,8 @@ function barplot(divname) {
 					tooltip.transition()
 						.duration(200)
 						.style("opacity", .9)
-					tooltip.html(`${d.data.Country}: ${students}k ${sex} students`)
+					tooltip.html(`${d.data.Country}: ${students}k ${sex} students
+						</br> Percentage: ${((d[1]-d[0]) * 100/(d.data.F + d.data.M)).toFixed(0)}%`)
 						.style("left", `${event.pageX}px`)
 						.style("top", `${event.pageY - 28}px`)
 					})
@@ -158,7 +164,7 @@ function barplot(divname) {
 						.duration(250)
 						.attr("fill", d => colorScale(sex))
 				})
-
+				
 			bars.selectAll("rect")
                 .data(d => d)
                 .transition()
@@ -166,7 +172,7 @@ function barplot(divname) {
                 .attr("x", d => xScale(d[0]))
                 .attr("y", d => yScale(d.data.Country))
                 .attr("width", d => xScale(d[1]) - xScale(d[0]))
-                .attr("height", yScale.bandwidth())
+                .attr("height", yScale.bandwidth())			
 
 			bars.exit().remove()
 			legend.exit().remove()

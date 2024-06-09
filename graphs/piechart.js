@@ -186,8 +186,7 @@ function pieChart(divname) {
             
             paths.join('text')
                 .merge(paths)
-                .text(d => {
-                    return ((d.endAngle-d.startAngle) / (2*Math.PI) * 100).toFixed(1) + "%"})
+                .text(d => ((d.endAngle-d.startAngle) / (2*Math.PI) * 100).toFixed(1) + "%")
                 .attr("transform", d => "translate(" + arcGenerator.centroid(d) + ")")
                 .style("text-anchor", "middle")
                 .style("font-size", 17)
